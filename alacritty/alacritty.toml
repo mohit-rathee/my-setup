@@ -111,15 +111,15 @@ white = "#FCFCFA"
 yellow = "#FFD866"
 
 [colors.primary]
-background = "#2D2A2E"
-foreground = "#FCFCFA"
+background = "#24273A"
+foreground = "#CAD3F5"
 
 [env]
 TERM = "xterm-256color"
 
 [font]
 # AppleFontSmoothing = true
-size = 15.0
+size = 20.0
 
 [font.bold]
 family = "Fira Code"

@@ -32,4 +32,4 @@ require("nvim-tree").setup({
         dotfiles = true,
     },
 })
-vim.keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>")
+vim.keymap.set("n", "<space>e", ":NvimTreeToggle<CR>")

@@ -4,6 +4,7 @@ require("luasnip.loaders.from_vscode").lazy_load()
 local cmp = require('cmp')
 cmp.setup({
     sources = {
+        { name = "copilot" },
         { name = 'nvim_lsp' },
         { name = 'luasnip' },
         { name = 'buffer' },

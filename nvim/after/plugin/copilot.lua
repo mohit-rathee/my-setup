@@ -1,0 +1,14 @@
+-- require("copilot").setup({
+--   suggestion = {
+--     enabled = true,          -- show inline ghost text
+--     auto_trigger = true,     -- automatically fetch suggestions as you type
+--     keymap = {
+--       accept = "<C-l>",      -- accept inline suggestion
+--       next = "<C-]>",        -- cycle next suggestion
+--       prev = "<C-[>",        -- cycle previous suggestion
+--       dismiss = "<C-c>",     -- dismiss suggestion
+--     },
+--   },
+--   panel = { enabled = true }, -- disable full suggestion panel if you only want inline
+-- })
+--
