@@ -3,5 +3,8 @@
 - alacritty
 - tmux
 - neovim
-- spotify
 - tmux-sessionizer
+### Scripts for:
+- spotify
+- acpi & awesome events
+- automount corne keyboard

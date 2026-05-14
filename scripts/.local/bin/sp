@@ -54,8 +54,8 @@ SP_MEMB="org.mpris.MediaPlayer2.Player"
 
 # To get SP_ID and SP_SECRET register at
 # https://beta.developer.spotify.com/documentation/general/guides/app-settings/
-SP_ID=""
-SP_SECRET=""
+SP_ID="7a4ffec37d0849629dc0667f6e0941f1"
+SP_SECRET="21c341ef5beb46f1ac24874afdb8a5d8"
 
 # SHELL OPTIONS
 
@@ -231,15 +231,20 @@ function sp-search {
   require curl
     #send request for token with ID and SecretID encoded to base64->grep take only  token from reply->trim reply down to token-> modified request to include token in header
   Q="$@"
-    ST=$(curl -H "Authorization: Basic $SP_B64ID" -d grant_type=client_credentials https://accounts.spotify.com/api/token --silent \
-    | grep -E -o "access_token\":\"[a-zA-Z0-9_-]+\"" -m 1 )
+    # ST=$(curl -H "Authorization: Basic $SP_B64ID" -d grant_type=client_credentials https://accounts.spotify.com/api/token --silent \
+    # | grep -E -o "access_token\":\"[a-zA-Z0-9_-]+\"" -m 1 )
+    ST=$(curl -s \
+  -H "Authorization: Basic $SP_B64ID" \
+  -d grant_type=client_credentials \
+  https://accounts.spotify.com/api/token)
 
-   echo $Q
-    ST2=${ST:15:115}
+   ST2=$(echo $ST |jq -r '.access_token') 
+   echo TOKEN: $ST
    echo TOKEN: $ST2
   SPTFY_URI=$(\
 	  curl -H "Authorization: Bearer $ST2" -s -G --data-urlencode "q=$Q" --data type=artist,track https://api.spotify.com/v1/search/ \ | grep -E -o "spotify:track:[a-zA-Z0-9]+" -m 1 \
   )
+  echo $SPTFY_URI
   if [[ "$SPTFY_URI" != "" ]]; then
       sp-open $SPTFY_URI
       echo success

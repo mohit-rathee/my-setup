@@ -1,0 +1,20 @@
+#!/bin/bash
+
+EVENT="$1"
+ARGUMENT="$2"
+
+if [ -z "$EVENT" ]; then
+    echo "Usage: awesome-signal <event-name>"
+    exit 1
+fi
+
+for BUS in /run/user/*/bus; do
+    USER_ID=$(echo "$BUS" | awk -F/ '{print $4}')
+
+    USER_NAME=$(getent passwd "$USER_ID" | cut -d: -f1)
+
+    if [ -n "$USER_NAME" ]; then
+      sudo -u "$USER_NAME" DBUS_SESSION_BUS_ADDRESS="unix:path=$BUS" \
+        awesome-client "awesome.emit_signal( [[${EVENT}]] ,[[${ARGUMENT}]] )" 2>/dev/null
+    fi
+done

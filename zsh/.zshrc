@@ -1,155 +1,196 @@
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+# ============================================================
+#  .zshrc — crafted config
+#  Framework : Oh My Zsh
+#  Theme     : Powerlevel10k
+# ============================================================
 
-# Path to your oh-my-zsh installation.
+# ── Path ────────────────────────────────────────────────────
+export PATH="$HOME/bin:/usr/local/bin:$PATH"
+export PATH="$PATH:$HOME/.local/bin"
+
+# ── Oh My Zsh ───────────────────────────────────────────────
 export ZSH="$HOME/.oh-my-zsh"
 
-#Enable docker buildkit
-export DOCKER_BUILDKIT=1
+# ── Theme ───────────────────────────────────────────────────
+# Powerlevel10k — run `p10k configure` after first launch
+ZSH_THEME="powerlevel10k/powerlevel10k"
 
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-#
-# Themes:
-#1. agnoster
-#2. bira
-#3. candy
-#4. fishy
-#5. gnzh
-#6. ristosorin
-#7. robbyrussell
-if [[ $TMUX ]] then
-    ZSH_THEME=af-magic
-else
-    if [[ $COLORTERM == 'truecolor'  ]] then
-        ZSH_THEME=random
-    else
-        ZSH_THEME=linuxonly
-    fi
+# Load p10k instant prompt (keep near top, before any output)
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# Set list of themes to pick from when loading at random
-# Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in $ZSH/themes/
-# If set to an empty array, this variable will have no effect.
-ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" "bira" "candy" "fishy" "gnzh" "risto" "sorin" "3den" "Soliah" "adben" "af-magic" "afowler" "agnoster" "alanpeabody" "amuse" "apple" "arrow" "aussiegeek" "avit" "awesomepanda" "bira" "blinks" "bureau" "candy-kingdom" "candy" "clean" "cloud" "crcandy" "crunch" "cypher" "dallas" "darkblood" "daveverwer" "dieter" "dogenpunk" "dpoggi" "dst" "dstufft" "duellj" "eastwood" "edvardm" "emotty" "essembeh" "evan" "fino-time" "fino" "fishy" "flazz" "fletcherm" "fox" "frisk" "frontcube" "funky" "fwalch" "gallifrey" "gallois" "garyblessington" "gentoo" "geoffgarside" "gianu" "gnzh" "gozilla" "half-life" "humza" "imajes" "intheloop" "itchy" "jaischeema" "jbergantine" "jispwoso" "jnrowe" "jonathan" "josh" "jreese" "jtriley" "juanghurtado" "junkfood" "kafeitu" "kardan" "kennethreitz" "kiwi" "kolo" "kphoen" "lambda" "linuxonly" "lukerandall" "macovsky-ruby@	" "-->" "macovsky" "macovsky" "maran" "mgutz" "mh" "michelebologna" "mikeh" "miloshadzic" "minimal" "mira" "mlh" "mortalscumbag" "mrtazz" "murilasso" "muse" "nanotech" "nebirhos" "nicoulaj" "norm" "obraun" "oldgallois" "peepcode" "philips" "pmcgee" "pygmalion-virtualenv" "pygmalion" "random" "re5et" "refined" "rgm" "risto" "rixius" "rkj-repos" "rkj" "robbyrussell" "sammy" "simonoff" "simple" "skaro" "smt" "sonicradish" "sorin" "sporty_256" "steeef" "strug" "sunaku" "sunrise" "superjarin" "suvash" "takashiyoshida" "terminalparty" "theunraveler" "tjkirch" "tjkirch_mod" "tonotdo" "trapd00r" "wedisagree" "wezm+" "wezm" "wuffers" "xiong-chiamiov-plus" "xiong-chiamiov" "ys" "zhann")
-
-
-
-
-# Uncomment the following line to use case-sensitive completion.
+# ── OMZ settings ────────────────────────────────────────────
 CASE_SENSITIVE="true"
-
-# Uncomment the following line to use hyphen-insensitive completion.
-# Case-sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
-
-# Uncomment one of the following lines to change the auto-update behavior
-# zstyle ':omz:update' mode disabled  # disable automatic updates
-# zstyle ':omz:update' mode auto      # update automatically without asking
-# zstyle ':omz:update' mode reminder  # just remind me to update when it's time
-
-# Uncomment the following line to change how often to auto-update (in days).
-# zstyle ':omz:update' frequency 13
-
-# Uncomment the following line if pasting URLs and other text is messed up.
-# DISABLE_MAGIC_FUNCTIONS="true"
-
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
-
-# Uncomment the following line to disable auto-setting terminal title.
-#DISABLE_AUTO_TITLE="true"
-
-# Uncomment the following line to enable command auto-correction.
 ENABLE_CORRECTION="true"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
-# You can also set it to another string to have that shown instead of the default red dots.
-# e.g. COMPLETION_WAITING_DOTS="%F{yellow}waiting...%f"
-# Caution: this setting can cause issues with multiline prompts in zsh < 5.7.1 (see #5765)
 COMPLETION_WAITING_DOTS="true"
+# DISABLE_UNTRACKED_FILES_DIRTY="true"   # uncomment for huge repos
+HIST_STAMPS="dd.mm.yyyy"
 
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
+# Auto-update every 14 days, no prompt
+zstyle ':omz:update' mode auto
+zstyle ':omz:update' frequency 14
 
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# You can set one of the optional three formats:
-# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# or set a custom format using the strftime function format specifications,
-# see 'man strftime' for details.
-# HIST_STAMPS="mm/dd/yyyy"
-
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
-
-# Which plugins would you like to load?
-# Standard plugins can be found in $ZSH/plugins/
-# Custom plugins may be added to $ZSH_CUSTOM/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
+# ── Plugins ─────────────────────────────────────────────────
 plugins=(
-    git
-    zsh-autosuggestions
+  git                        # git aliases + prompt info
+  zsh-autosuggestions        # ghost-text suggestions
+  zsh-syntax-highlighting    # live syntax colours
+  fzf                        # fuzzy finder keybindings
+  history-substring-search   # Up/Down searches through history
+  colored-man-pages          # colour in man pages
+  dirhistory                 # Alt+Left/Right navigate dir history
+  z                          # jump to frecent dirs
 )
 
-
-# While putting keymaps here, you can't use them in nested session
-# bindkey '^[i' clear-screen
-# bindkey '^[ ' autosuggest-accept
 source $ZSH/oh-my-zsh.sh
-source $HOME/.bind_key.zsh
-if [[ $TERM == 'linux' ]] then
-    setfont ter-v32b.psf.gz
-    echo WELCOME
-fi
 
-# User configuration
+# ── Powerlevel10k config file ────────────────────────────────
+[[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
 
-# export MANPATH="/usr/local/man:$MANPATH"
+# ── Keybindings ─────────────────────────────────────────────
+source "$HOME/.bind_key.zsh"
 
-# You may need to manually set your language environment
+# ── Environment ─────────────────────────────────────────────
+export EDITOR='nvim'
+export VISUAL='nvim'
 # export LANG=en_US.UTF-8
 
-export EDITOR='nvim'
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
+# ── Pyenv ───────────────────────────────────────────────────
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
 
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
+# ── Android SDK ─────────────────────────────────────────────
+export ANDROID_HOME="$HOME/Android/Sdk"
+export PATH="$PATH:$ANDROID_HOME/cmdline-tools/latest/bin"
+export PATH="$PATH:$ANDROID_HOME/platform-tools"
+export PATH="$PATH:$ANDROID_HOME/emulator"
 
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-alias nivm="nvim"
-alias nv="nvim"
-alias gs="git status"
-alias ga="git add"
-alias gc="git commit -m"
-alias tl="tmux ls"
-alias ta="tmux a"
-alias st="startx"
-alias ov="--overwrite '*'"
-alias connect_bluetooth="bluetoothctl connect 74:D7:13:ED:10:00"
-alias disconnect_bluetooth="bluetoothctl disconnect 74:D7:13:ED:10:00"
-alias my_wifi="nmcli d wifi connect GalaxyF23"
-alias home_wifi="nmcli d wifi connect Rathee"
-alias disconnect="nmcli d disconnect wlp2s0b1"
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
+# ── Docker ──────────────────────────────────────────────────
+export DOCKER_BUILDKIT=1
 
-# Created by `pipx` on 2024-03-20 13:07:01
-export PATH="$PATH:/home/Arch/.local/bin"
-export DEFAULT_MODEL="gpt-3.5-turbo-0125"
+# ── NVM ─────────────────────────────────────────────────────
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ]             && source "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ]    && source "$NVM_DIR/bash_completion"
+
+# ── Spicetify ───────────────────────────────────────────────
+export PATH="$PATH:$HOME/.spicetify"
+
+# ── History ─────────────────────────────────────────────────
+HISTSIZE=50000
+SAVEHIST=50000
+HISTFILE="$HOME/.zsh_history"
+
+setopt HIST_IGNORE_DUPS        # don't store duplicate adjacent entries
+setopt HIST_IGNORE_ALL_DUPS    # remove older duplicate entries
+setopt HIST_FIND_NO_DUPS       # no dupes in search
+setopt HIST_REDUCE_BLANKS      # strip extra blanks
+setopt HIST_VERIFY             # show expanded history before running
+setopt SHARE_HISTORY           # share history across all sessions instantly
+setopt INC_APPEND_HISTORY      # write to history immediately, not on exit
+
+# ── Directory behaviour ─────────────────────────────────────
+setopt AUTO_CD                 # type a dir name to cd into it
+setopt AUTO_PUSHD              # cd pushes onto dir stack automatically
+setopt PUSHD_IGNORE_DUPS       # no duplicate entries in dir stack
+setopt PUSHD_SILENT            # don't print dir stack after pushd/popd
+
+# ── Completion ──────────────────────────────────────────────
+setopt CORRECT                 # spelling correction for commands
+setopt CORRECT_ALL             # spelling correction for arguments
+autoload -Uz compinit && compinit
+
+# Coloured completions (files, dirs, sockets, pipes, etc.)
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+zstyle ':completion:*' menu select
+zstyle ':completion:*:descriptions' format '%F{yellow}-- %d --%f'
+zstyle ':completion:*:warnings' format '%F{red}No matches for: %d%f'
+
+# ── ls colours ──────────────────────────────────────────────
+# Uses GNU dircolors; covers files, dirs, links, sockets, pipes, executables…
+if command -v dircolors &>/dev/null; then
+  eval "$(dircolors -b)"
+fi
+alias ls='ls --color=auto --group-directories-first'
+
+# ── Autosuggestion style ─────────────────────────────────────
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#666666'
+ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+
+# ── fzf ─────────────────────────────────────────────────────
+export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --border --info=inline"
+# Use fd if available (respects .gitignore, faster)
+if command -v fd &>/dev/null; then
+  export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+  export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+fi
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+bindkey -s "^[f" "tmux-sessionizer\n"
+
+# ── Linux console only ───────────────────────────────────────
+if [[ $TERM == 'linux' ]]; then
+  setfont ter-v32b.psf.gz 2>/dev/null || true
+  echo "WELCOME"
+fi
+
+# ── Aliases — Navigation ─────────────────────────────────────
+alias ll='ls -lhF --color=auto --group-directories-first'
+alias la='ls -lAhF --color=auto --group-directories-first'
+alias l='ls -CF --color=auto'
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias ~='cd ~'
+alias -- -='cd -'               # go back to previous dir
+
+# ── Aliases — Git ───────────────────────────────────────────
+alias gs='git status'
+alias ga='git add'
+alias gaa='git add --all'
+alias gc='git commit -m'
+alias gca='git commit --amend'
+alias gp='git push'
+alias gpl='git pull'
+alias gco='git checkout'
+alias gcb='git checkout -b'
+alias gb='git branch'
+alias gbd='git branch -d'
+alias gl='git log --oneline --graph --decorate --all'
+alias gd='git diff'
+alias gds='git diff --staged'
+alias gst='git stash'
+alias gstp='git stash pop'
+
+# ── Aliases — Neovim ────────────────────────────────────────
+alias nv='nvim'
+alias nivm='nvim'          # kept from old config (typo muscle memory)
+
+# ── Aliases — Tmux ──────────────────────────────────────────
+alias tl='tmux ls'
+alias ta='tmux a'
+alias tn='tmux new -s'
+alias tk='tmux kill-session -t'
+
+# ── Aliases — Network ───────────────────────────────────────
+alias my_wifi='nmcli d wifi connect AirFiber'
+alias home_wifi='nmcli d wifi connect AirFiber'
+alias disconnect='nmcli d disconnect wlp2s0b1'
+
+# ── Aliases — Bluetooth ─────────────────────────────────────
+alias connect_bluetooth='bluetoothctl connect 74:D7:13:ED:10:00'
+alias disconnect_bluetooth='bluetoothctl disconnect 74:D7:13:ED:10:00'
+
+# ── Aliases — Misc ──────────────────────────────────────────
+alias st='startx'
+alias edit_history='nvim ~/.zsh_history'
+alias zshrc='nvim ~/.zshrc'
+alias reload='source ~/.zshrc'
+
+# ── Powerlevel10k right-side command timer ───────────────────
+# P10k shows command execution time on the right by default.
+# Tune the threshold (seconds) below which time is hidden:
+# In ~/.p10k.zsh find: typeset -g POWERLEVEL9K_COMMAND_EXECUTION_TIME_THRESHOLD
+# and set it to e.g. 2 (only show if cmd took > 2 s).
+# Run `p10k configure` to set this interactively.
