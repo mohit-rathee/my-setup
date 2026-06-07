@@ -1,5 +1,4 @@
 vim.g.mapleader = " "
-vim.keymap.set("n", "<leader>E", vim.cmd.Ex)
 vim.api.nvim_set_keymap('n', '<Space>', '<Nop>', { noremap = true, silent = true })
 vim.keymap.set({ "i", "n","v" }, "<M- >", '<Esc>')
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
@@ -45,3 +44,6 @@ vim.keymap.set('n', '<C-j>', ':TmuxNavigateDown<CR>', { silent = true })
 vim.keymap.set('n', '<C-k>', ':TmuxNavigateUp<CR>', { silent = true })
 vim.keymap.set('n', '<C-l>', ':TmuxNavigateRight<CR>', { silent = true })
 
+vim.keymap.set("n", "<leader>tt", function()
+    require("config.transparency").toggle()
+end, { desc = "Toggle Transparency" })
