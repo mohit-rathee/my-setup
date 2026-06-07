@@ -1,1 +1,1 @@
-require('Neovim_config')
+require('config')
