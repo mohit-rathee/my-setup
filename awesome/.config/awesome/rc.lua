@@ -648,6 +648,7 @@ clientbuttons = gears.table.join(
 
 -- Set keys
 root.keys(globalkeys)
+require('events.keyboard-mapping')
 -- }}}
 
 -- {{{ Rules

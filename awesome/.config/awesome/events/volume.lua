@@ -4,7 +4,7 @@ local awful = require("awful")
 local ICON_PATH = '/usr/share/icons/Adwaita/scalable/mimetypes/audio-x-generic.svg'
 local ICON_SIZE = nil
 local EVENT_TIMEOUT = 1
-local VOLUME_EVENT = 'VOLUME'
+local EVENT = 'VOLUME'
 local notification_id = nil
 
 local function notify(e_type, e_msg)
@@ -53,7 +53,7 @@ awesome.connect_signal("acpi::volume_up", function()
     awful.spawn("pactl set-sink-volume @DEFAULT_SINK@ +5%", false)
 
     get_volume(function(vol)
-        notify(VOLUME_EVENT, string.format("Volume %s", vol))
+        notify(EVENT, string.format("Volume %s", vol))
     end)
 end)
 
@@ -61,7 +61,7 @@ awesome.connect_signal("acpi::volume_down", function()
     awful.spawn("pactl set-sink-volume @DEFAULT_SINK@ -5%", false)
 
     get_volume(function(vol)
-        notify(VOLUME_EVENT, string.format("Volume %s", vol))
+        notify(EVENT, string.format("Volume %s", vol))
     end)
 end)
 
@@ -70,6 +70,6 @@ awesome.connect_signal("acpi::volume_mute", function()
 
     is_muted(function(state)
         local msg = (state == "yes") and "Muted" or "Unmuted"
-        notify(VOLUME_EVENT, msg)
+        notify(EVENT, msg)
     end)
 end)

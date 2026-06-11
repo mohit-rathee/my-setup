@@ -3,8 +3,8 @@ local awful = require("awful")
 
 local ICON_PATH = '/usr/share/icons/downloads/brightness.svg'
 local ICON_SIZE = nil
-local EVENT_TIMEOUT = 3
-local VOLUME_EVENT = 'BRIGHTNESS'
+local EVENT_TIMEOUT = 1
+local EVENT = 'BRIGHTNESS'
 local notification_id = nil
 
 local function notify(e_type, e_msg)
@@ -28,17 +28,17 @@ local function get_brightness(callback)
 end
 
 awesome.connect_signal("acpi::brightness_up", function()
-    awful.spawn("brightnessctl set +5%", false)
+    awful.spawn("brightnessctl set +2%", false)
 
     get_brightness(function(level)
-        notify(VOLUME_EVENT, "Brightness " .. level)
+        notify(EVENT, "Brightness " .. level)
     end)
 end)
 
 awesome.connect_signal("acpi::brightness_down", function()
-    awful.spawn("brightnessctl set 5%-", false)
+    awful.spawn("brightnessctl set 2%-", false)
 
     get_brightness(function(level)
-        notify(VOLUME_EVENT, "Brightness " .. level)
+        notify(EVENT, "Brightness " .. level)
     end)
 end)

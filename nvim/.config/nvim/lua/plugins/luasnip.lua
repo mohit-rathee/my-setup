@@ -13,6 +13,37 @@ return {
         local s = ls.snippet
         local t = ls.text_node
         local i = ls.insert_node
+        local rep = require("luasnip.extras").rep
+
+        -- python
+        ls.add_snippets("python", {
+            s("defa", {
+                t("def "), i(1, "function_name"), t("("),
+                i(2, "arr"), t({ "):", "    print(" }),
+                rep(2),
+                t({ ")", "", "" }),
+                rep(2), t(" = "), i(3, "[]"),
+                t({ "", "" }),
+                rep(1), t("("), rep(2), t(")"),
+            }),
+        })
+
+        ls.add_snippets("python", {
+            s("defan", {
+                t("def "), i(1, "function_name"), t("("),
+                i(2, "arr"), t(", "),
+                i(3, "num"),
+                t({ "):", "    print(" }),
+                rep(2), t(", "), rep(3),
+                t({ ")", "", "" }),
+                rep(2), t(" = "), i(4, "[]"),
+                t({ "", "" }),
+                rep(3), t(" = "), i(5, "0"),
+                t({ "", "" }),
+                rep(1), t("("), rep(2), t(", "), rep(3), t(")"),
+            }),
+        })
+
 
         -- Lua snippets
         ls.add_snippets("lua", {
@@ -34,13 +65,13 @@ return {
         })
 
         -- Snippet navigation
-        vim.keymap.set({ "i", "s" }, "<C-j>", function()
+        vim.keymap.set({ "i", "s" }, "<Tab>", function()
             if ls.jumpable(1) then
                 ls.jump(1)
             end
         end, { desc = "LuaSnip Next" })
 
-        vim.keymap.set({ "i", "s" }, "<C-k>", function()
+        vim.keymap.set({ "i", "s" }, "<C-h>", function()
             if ls.jumpable(-1) then
                 ls.jump(-1)
             end
