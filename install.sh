@@ -2,14 +2,10 @@
 
 set -e
 
-# Symlink scripts into ~/.local/bin
-mkdir -p ~/.local/bin
-stow -t ~/.local/ scripts
-
 for dir in */; do
     pkg="${dir%/}"
 
-    if [[ "$pkg" == "system-tools" || "$pkg" == "scripts" ]]; then
+    if [[ "$pkg" == "system-tools" || "$pkg" == "scripts" || "$pkg" == "utils"]]; then
         continue
     fi
 
@@ -19,5 +15,11 @@ done
 
 echo "Stowing system-tools..."
 sudo stow -t / system-tools
+
+# Symlink scripts into ~/.local/bin
+echo "Stowing scripts..."
+mkdir -p ~/.local/bin
+stow -t ~/.local/ scripts
+
 
 echo "Done."

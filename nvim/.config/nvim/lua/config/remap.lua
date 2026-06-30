@@ -47,3 +47,9 @@ vim.keymap.set('n', '<C-l>', ':TmuxNavigateRight<CR>', { silent = true })
 vim.keymap.set("n", "<leader>tt", function()
     require("config.transparency").toggle()
 end, { desc = "Toggle Transparency" })
+
+vim.api.nvim_create_user_command("LspClients", function()
+  vim.print(vim.tbl_map(function(client)
+    return client.name
+  end, vim.lsp.get_clients({ bufnr = 0 })))
+end, {})

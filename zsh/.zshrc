@@ -13,7 +13,11 @@ export ZSH="$HOME/.oh-my-zsh"
 
 # ── Theme ───────────────────────────────────────────────────
 # Powerlevel10k — run `p10k configure` after first launch
-ZSH_THEME="powerlevel10k/powerlevel10k"
+if [[ $COLORTERM == 'truecolor'  ]] then
+  ZSH_THEME="powerlevel10k/powerlevel10k"
+else
+  ZSH_THEME="linuxonly"
+fi
 
 # Load p10k instant prompt (keep near top, before any output)
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
@@ -46,7 +50,9 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 
 # ── Powerlevel10k config file ────────────────────────────────
-[[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
+if [[ $COLORTERM == "truecolor" ]]; then
+  [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
+fi
 
 # ── Keybindings ─────────────────────────────────────────────
 source "$HOME/.bind_key.zsh"
@@ -131,7 +137,9 @@ bindkey -s "^[f" "tmux-sessionizer\n"
 
 # ── Linux console only ───────────────────────────────────────
 if [[ $TERM == 'linux' ]]; then
-  setfont ter-v32b.psf.gz 2>/dev/null || true
+  PROMPT='%(!.%F{red}#.%F{green}❯)%f %F{blue}%1~%f %(?..%F{red}[✗]%f )'
+  RPROMPT=''
+  # setfont ter-v32b.psf.gz 2>/dev/null || true
   echo "WELCOME"
 fi
 

@@ -512,6 +512,8 @@ local globalkeys = gears.table.join(
     { description = "Decrease volume", group = "Volume" }),
   awful.key({ modkey, }, "g", function() awful.util.spawn("google-chrome-stable") end,
     { description = "web browser", group = "applications" }),
+  awful.key({ modkey, }, "y", function() awful.util.spawn("google-chrome-stable youtube.com") end,
+    { description = "web browser", group = "applications" }),
 
   -- layouts
   awful.key({ modkey, "Shift" }, "Right", function() awful.layout.inc(1) end,
@@ -648,7 +650,16 @@ clientbuttons = gears.table.join(
 
 -- Set keys
 root.keys(globalkeys)
-require('events.keyboard-mapping')
+-- awful.keyboard.append_global_keybindings({
+--     awful.key({}, "XF86MonBrightnessDown", function()
+--         awesome.emit_signal("acpi::brightness_down")
+--     end),
+-- })
+-- awful.keyboard.append_global_keybindings({
+--     awful.key({}, "XF86MonBrightnessUp", function()
+--         awesome.emit_signal("acpi::brightness_up")
+--     end),
+-- })
 -- }}}
 
 -- {{{ Rules

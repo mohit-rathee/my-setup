@@ -29,34 +29,34 @@ return {
             desc = "Harpoon Menu",
         },
 
-        {
-            "<C-h>",
-            function()
-                require("harpoon"):list():select(1)
-            end,
-        },
-
-        {
-            "<C-t>",
-            function()
-                require("harpoon"):list():select(2)
-            end,
-        },
-
-        {
-            "<C-n>",
-            function()
-                require("harpoon"):list():select(3)
-            end,
-        },
-
-        {
-            "<C-s>",
-            function()
-                require("harpoon"):list():select(4)
-            end,
-        },
-
+        -- {
+        --     "<C-a>",
+        --     function()
+        --         require("harpoon"):list():select(1)
+        --     end,
+        -- },
+        --
+        -- {
+        --     "<C-w>",
+        --     function()
+        --         require("harpoon"):list():select(2)
+        --     end,
+        -- },
+        --
+        -- {
+        --     "<C-t>",
+        --     function()
+        --         require("harpoon"):list():select(3)
+        --     end,
+        -- },
+        --
+        -- {
+        --     "<C-s>",
+        --     function()
+        --         require("harpoon"):list():select(4)
+        --     end,
+        -- },
+        --
         {
             "<C-S-P>",
             function()
