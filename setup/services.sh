@@ -5,6 +5,7 @@ set -euo pipefail
 SYSTEM_SERVICES=(
     NetworkManager
     bluetooth
+    acpid
 )
 
 USER_SERVICES=(

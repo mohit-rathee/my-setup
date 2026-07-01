@@ -60,8 +60,9 @@ find "$SYSTEM_TOOLS_DIR" -type f | while read -r src; do
     rel="${src#$SYSTEM_TOOLS_DIR/}"
     target="/$rel"
 
-    if [[ -e "$target" && ! -L "$target" ]]; then
-        echo "Removing existing file: $target"
+    if [[ -f "$target" && ! -L "$target" ]]; then
+        echo "Conflict: $target"
+        echo "Removing regular file so it can be managed by stow..."
         sudo rm -f "$target"
     fi
 done
