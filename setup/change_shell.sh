@@ -11,7 +11,7 @@ fi
 
 if [[ "$SHELL" != "$ZSH_PATH" ]]; then
     echo "Changing default shell to zsh..."
-    chsh -s "$ZSH_PATH"
+    sudo chsh -s "$ZSH_PATH"
     echo "Default shell changed. Log out and back in for it to take effect."
 else
     echo "zsh is already the default shell."
