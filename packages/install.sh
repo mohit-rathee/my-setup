@@ -20,7 +20,7 @@ main() {
 
     info "Updating package database..."
 
-    if sudo pacman -Syu --needed; then
+    if sudo pacman -Syu --needed --noconfirm; then
         tick "System updated"
     else
         cross "System update failed"
