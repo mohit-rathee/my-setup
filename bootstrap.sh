@@ -2,6 +2,12 @@
 
 set -euo pipefail
 
+# get authentication token
+sudo -v
+
+# set visible fonts
+sudo setfont ter-v32n
+
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 
 bash "$SCRIPT_DIR/packages/install.sh"

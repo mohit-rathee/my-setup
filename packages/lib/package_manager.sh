@@ -28,13 +28,17 @@ install_packages() {
         arr="PKG_${group// /_}"
         declare -n packages="$arr"
 
-        if "${cmd[@]}" -S --needed --noconfirm --overwrite '*'  "${packages[@]}"; then
+        if ! "${cmd[@]}" -Si "${packages[@]}" >/dev/null 2>&1; then
+            cross "One or more packages in '$group' were not found."
+            return 1
+        fi
+
+        if "${cmd[@]}" -S --needed --noconfirm "${packages[@]}"; then
             tick "$group"
         else
             cross "$group"
             return 1
         fi
-
         echo
     done
 }
