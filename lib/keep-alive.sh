@@ -5,7 +5,6 @@ start_sudo_keepalive() {
 
     (
         while true; do
-            echo cached
             sudo -n true
             sleep 6
         done
