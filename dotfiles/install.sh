@@ -52,6 +52,12 @@ stow --dir="$CONFIG_DIR" --target="$HOME/.local" scripts
 echo
 echo "==> Stowing system files"
 
+
+# remove vconsole.conf
+if [[ -e /etc/vconsole.conf && ! -L /etc/vconsole.conf ]]; then
+    sudo mv /etc/vconsole.conf /etc/vconsole.conf.bak
+fi
+
 sudo stow --dir="$CONFIG_DIR" --target=/ system-tools
 
 echo
