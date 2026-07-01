@@ -50,15 +50,26 @@ mkdir -p "$HOME/.local/bin"
 stow --dir="$CONFIG_DIR" --target="$HOME/.local" scripts
 
 echo
-echo "==> Stowing system files"
+echo "==> Installing system files"
 
+SYSTEM_TOOLS_DIR="$CONFIG_DIR/system-tools"
 
-# remove vconsole.conf
-if [[ -e /etc/vconsole.conf && ! -L /etc/vconsole.conf ]]; then
-    sudo mv /etc/vconsole.conf /etc/vconsole.conf.bak
-fi
+sudo stow -D --dir="$CONFIG_DIR" --target=/ system-tools 2>/dev/null || true
+
+find "$SYSTEM_TOOLS_DIR" -type f | while read -r src; do
+    rel="${src#$SYSTEM_TOOLS_DIR/}"
+    target="/$rel"
+
+    if [[ -e "$target" && ! -L "$target" ]]; then
+        echo "Removing existing file: $target"
+        sudo rm -f "$target"
+    fi
+done
 
 sudo stow --dir="$CONFIG_DIR" --target=/ system-tools
+
+echo
+echo "✓ System files successfully stowed."
 
 echo
 echo "✓ Dotfiles successfully stowed."
