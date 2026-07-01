@@ -2,13 +2,17 @@
 
 set -euo pipefail
 
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+LIB_DIR="$SCRIPT_DIR/lib"
+
 # get authentication token
-sudo -v
+source "$LIB_DIR/keep-alive.sh"
+
+start_sudo_keepalive
+trap stop_sudo_keepalive EXIT
 
 # # set visible fonts
 # sudo setfont ter-v32n
-
-SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 
 bash "$SCRIPT_DIR/packages/install.sh"
 
@@ -19,6 +23,8 @@ for script in "$SCRIPT_DIR"/setup/*.sh; do
     echo "==> Running $(basename "$script")"
     bash "$script"
 done
+
+stop_sudo_keepalive
 
 echo
 echo "✓ Bootstrap complete."
