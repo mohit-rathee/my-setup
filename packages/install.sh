@@ -18,6 +18,16 @@ main() {
 
     header "Preparing Installation"
 
+    info "Loading package configuration..."
+
+    parse_packages "$PACKAGE_FILE"
+
+    tick "Configuration loaded"
+
+    select_optional_groups
+
+    echo
+
     info "Updating package database..."
 
     if sudo pacman -Syu --needed --noconfirm; then
@@ -26,18 +36,6 @@ main() {
         cross "System update failed"
         exit 1
     fi
-
-    echo
-
-    info "Loading package configuration..."
-
-    parse_packages "$PACKAGE_FILE"
-
-    tick "Configuration loaded"
-
-    echo
-
-    select_optional_groups
 
     echo
 
