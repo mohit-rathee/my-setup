@@ -63,9 +63,9 @@ export VISUAL='nvim'
 # export LANG=en_US.UTF-8
 
 # ── Pyenv ───────────────────────────────────────────────────
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
+# export PYENV_ROOT="$HOME/.pyenv"
+# export PATH="$PYENV_ROOT/bin:$PATH"
+# eval "$(pyenv init -)"
 
 # ── Android SDK ─────────────────────────────────────────────
 export ANDROID_HOME="$HOME/Android/Sdk"
