@@ -6,104 +6,178 @@ return {
 	},
 
 	config = function()
-		-- Load vscode-style snippets
 		require("luasnip.loaders.from_vscode").lazy_load()
 
 		local ls = require("luasnip")
+
 		local s = ls.snippet
-		local t = ls.text_node
 		local i = ls.insert_node
+		local t = ls.text_node
+
+		local fmt = require("luasnip.extras.fmt").fmt
 		local rep = require("luasnip.extras").rep
 
-		-- python
-		ls.add_snippets("python", {
-			s("mid", {
-				t("mid = (low + high) // 2 "),
-			}),
-		})
+		-- =========================
+		-- Python snippets
+		-- =========================
 
 		ls.add_snippets("python", {
-			s("defa", {
-				t("def "),
-				i(1, "function_name"),
-				t("("),
-				i(2, "arr"),
-				t({ "):", "    print(" }),
-				rep(2),
-				t({ ")", "", "" }),
-				rep(2),
-				t(" = "),
-				i(3, "[]"),
-				t({ "", "" }),
-				rep(1),
-				t("("),
-				rep(2),
-				t(")"),
-			}),
+
+			-- Binary search middle
+			s(
+				"mid",
+				fmt(
+					[[
+mid = (low + high) // 2
+]],
+					{}
+				)
+			),
+
+
+			-- Normal function with array
+			s(
+				"defa",
+				fmt(
+					[[
+def {}({}):
+    print({})
+
+{} = {}
+
+{}({})
+]],
+					{
+						i(1, "function_name"),
+						i(2, "arr"),
+						rep(2),
+
+						rep(2),
+						i(3, "[]"),
+
+						rep(1),
+						rep(2),
+					}
+				)
+			),
+
+
+			-- Function with array + number
+			s(
+				"defan",
+				fmt(
+					[[
+def {}({}, {}):
+    print({}, {})
+
+{} = {}
+{} = {}
+
+{}({}, {})
+]],
+					{
+						i(1, "function_name"),
+						i(2, "arr"),
+						i(3, "num"),
+
+						rep(2),
+						rep(3),
+
+						rep(2),
+						i(4, "[]"),
+
+						rep(3),
+						i(5, "0"),
+
+						rep(1),
+						rep(2),
+						rep(3),
+					}
+				)
+			),
+
+
+			-- Striver / Leetcode Solution class
+			s(
+				"solve",
+				fmt(
+					[[
+class Solution:
+    def {}(self, {}):
+        {}
+
+sol = Solution()
+sol.{}({})
+]],
+					{
+						i(1, "function_name"),
+						i(2, "args"),
+						i(3, "pass"),
+						rep(1),
+						i(4, "value"),
+					}
+				)
+			),
 		})
 
-		ls.add_snippets("python", {
-			s("defan", {
-				t("def "),
-				i(1, "function_name"),
-				t("("),
-				i(2, "arr"),
-				t(", "),
-				i(3, "num"),
-				t({ "):", "    print(" }),
-				rep(2),
-				t(", "),
-				rep(3),
-				t({ ")", "", "" }),
-				rep(2),
-				t(" = "),
-				i(4, "[]"),
-				t({ "", "" }),
-				rep(3),
-				t(" = "),
-				i(5, "0"),
-				t({ "", "" }),
-				rep(1),
-				t("("),
-				rep(2),
-				t(", "),
-				rep(3),
-				t(")"),
-			}),
-		})
 
+		-- =========================
 		-- Lua snippets
+		-- =========================
+
 		ls.add_snippets("lua", {
-			s("fun", {
-				t("function "),
-				i(1, "name"),
-				t("("),
-				i(2, "args"),
-				t(")"),
-				t({ "", "\t" }),
-				i(3, "body"),
-				t({ "", "end" }),
-			}),
+
+			s(
+				"fun",
+				fmt(
+					[[
+function {}({})
+    {}
+end
+]],
+					{
+						i(1, "name"),
+						i(2, "args"),
+						i(3, "body"),
+					}
+				)
+			),
 		})
 
-		-- React / TSX snippets
+
+		-- =========================
+		-- React snippets
+		-- =========================
+
 		ls.add_snippets("typescriptreact", {
-			s("useEffect", {
-				t("useEffect(() => {"),
-				t({ "", "\t" }),
-				i(1, "Effect"),
-				t({ "", "}, [" }),
-				i(2, "dependencies"),
-				t("]);"),
-			}),
+
+			s(
+				"useEffect",
+				fmt(
+					[[
+useEffect(() => {{
+    {}
+}}, [{}]);
+]],
+					{
+						i(1, "effect"),
+						i(2, "dependencies"),
+					}
+				)
+			),
 		})
 
-		-- Snippet navigation
+
+		-- =========================
+		-- Navigation
+		-- =========================
+
 		vim.keymap.set({ "i", "s" }, "<C-j>", function()
 			if ls.jumpable(1) then
 				ls.jump(1)
 			end
 		end, { desc = "LuaSnip Next" })
+
 
 		vim.keymap.set({ "i", "s" }, "<C-h>", function()
 			if ls.jumpable(-1) then
@@ -111,7 +185,8 @@ return {
 			end
 		end, { desc = "LuaSnip Prev" })
 
-		vim.keymap.set("s", "<CR>", function()
+
+		vim.keymap.set({ "i", "s" }, "<CR>", function()
 			if ls.expand_or_jumpable() then
 				ls.expand_or_jump()
 			end
